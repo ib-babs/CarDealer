@@ -1,0 +1,68 @@
+﻿@model CarListItem
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <h4>Add New Item</h4>
+    <div class="mb-3">
+        <form method="post" enctype="multipart/form-data" asp-controller="CarItem" asp-action="@ViewData["Action"]"
+        asp-route-id="@if(ViewData["Action"] as string != "PostCar")
+    @Model.CarItem.Id
+
+        ">
+            <div class="mb-3">
+                <input class="form-control"
+                type="text" asp-for="CarItem.Manufacturer"
+                placeholder="Mannufacturer"
+                required />
+            </div>
+            <div class="mb-3">
+                <input class="form-control"
+                type="text" asp-for="CarItem.Model"
+                placeholder="Model"
+                required />
+            </div>
+            <div class="mb-3">
+                <input class="form-control"
+                type="text" asp-for="CarItem.Color"
+                placeholder="Color"
+                required />
+            </div>
+
+            <div class="mb-3">
+                <input class="form-control"
+                type="number" asp-for="CarItem.Year"
+                placeholder="Year"
+                required />
+            </div>
+            <div class="mb-3">
+                <input class="form-control"
+                type="number" asp-for="CarItem.WheelQuantity"
+                placeholder="Wheel Count"
+                required />
+            </div>
+            <div class="mb-3">
+                <input class="form-control"
+                type="text" asp-for="CarItem.Features"
+                placeholder="Feature"
+                required />
+            </div>
+            <div class="mb-3">
+                <input class="form-control"
+                type="number" asp-for="CarItem.Price"
+                placeholder="Price"
+                required />
+            </div> <div class="mb-3">
+                <input class="form-control"
+                type="file" asp-for="Image.Image" accept="image/jpg,png"
+                required />
+            </div>
+            <input class="btn btn-outline-primary" type="submit" value="@ViewData["submit-btn-value"]" />
+        </form>
+    </div>
+}
+else
+{
+    <p>Nothing to see here!</p>
+}

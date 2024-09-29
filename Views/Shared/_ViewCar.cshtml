@@ -1,0 +1,80 @@
+﻿@model CarItem
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+<div class="card" style="border-color:@Model.Color">
+    <p class="card-header fs-3" style="border-color:@Model.Color">
+        @if (ViewData["CardHeader"] == null || ViewData["CardHeader"] as string == "")
+            @Model.Manufacturer
+        else
+        {
+            @ViewData["CardHeader"]
+        }
+    </p>
+
+    <div class="card-body">
+        <div class="d-flex flex-wrap gap-2 justify-content-between align-items-start mb-2">
+            <p style="font-weight: 600">@Model.Model</p>
+            <button class="btn btn-success p-1">@Model.Price.ToString("c")</button>
+        </div>
+        <div class="card-img img-top">
+            @if(ViewData["is-thumbnail-img"] as bool? == true){
+            <img loading="lazy" src="/uploaded-image/thumbnail-images/@Model.ImagePath?.Split('\\')[^1]" alt="@Model.ImagePath?.Split('\\')[^1]" style="width: 200px; display: grid; margin: auto;" />
+            } else{
+            <img loading="lazy" src="/uploaded-image/original-images/@Model.ImagePath?.Split('\\')[^1]" alt="@Model.ImagePath?.Split('\\')[^1]" style="width: 300px; display: grid; margin: auto;" />
+            }
+        </div>
+
+        @if (ViewData["show-all-details"] as bool? == true)
+        {
+            <p> Color: @Model.Color</p>
+            <p>Wheel: @Model.WheelQuantity</p>
+            <p>Year: @Model.Year</p>
+            <p>Features: @Model.Features</p>
+        }
+    </div>
+    <div class="card-footer" style="border-color: @Model.Color">
+        @if (ViewData["show-confirm-detele-form"] as bool? == true)
+        {
+            <form asp-action="DeleteItem" method="post" asp-controller="CarItem">
+                <button type="submit" class="btn btn-danger p-1">Delete</button>
+                <a asp-action="Index" class="btn btn-warning p-1">Cancel</a>
+            </form>
+
+        }
+        @if (ViewData["show-view-detail-btn"] as bool? == true)
+        {
+            <a asp-action="GetItem" asp-route-id="@Model.Id" class="btn btn-outline-secondary p-1">View Detail</a>
+        }
+        @if (SignInManager.IsSignedIn(User))
+        {
+            @if (ViewData["show-options-btn"] as bool? == true)
+            {
+                <a asp-action="EditItem" asp-route-id="@Model.Id" class="btn btn-outline-primary p-1">Edit</a>
+                <a asp-action="DeleteItem" asp-route-id="@Model.Id" class="btn btn-outline-danger p-1">Delete</a>
+            }
+        }
+        @if (ViewData["show-sendinq-btn"] as bool? == true)
+        {
+            <button id="show-inquiry-div" class="btn btn-outline-secondary" onclick="showInquiryDiv()">Send Inquiry</button>
+            <div id="inquiry-div" hidden>
+                <form method="post" asp-action="SendUserInquiry" asp-controller="CarItem" asp-route-id="@Model.Id" class="text-center p-2">
+                    <input type="email" name="EmailAddress" required placeholder="Your Email"/>
+                    <button type="submit" class="btn btn-info p-1">Send</button>
+                </form>
+            </div>
+        }
+    </div>
+
+</div>
+
+<script async>
+    const inquiryDiv = document.getElementById("inquiry-div");
+    function showInquiryDiv() {
+        if (inquiryDiv.hasAttribute("hidden"))
+            inquiryDiv.removeAttribute("hidden");
+        else inquiryDiv.setAttribute("hidden", true);
+    }
+</script>

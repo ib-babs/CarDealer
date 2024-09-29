@@ -1,0 +1,31 @@
+﻿@model ContactItem
+@{
+    ViewData["Title"] = "Contact Us";
+
+}
+
+<div>
+    <h2>Send Us Message</h2>
+    <form asp-action="Index" method="post" asp-controller="ContactUs">
+        <div class="mb-3">
+            <input type="email"
+                   class="form-control"
+                   asp-for="EmailAddress"
+                   placeholder="Your Email" 
+                   required />
+        </div>
+        <div class="mb-3">
+            <input type="text"
+                   class="form-control"
+                   asp-for="Subject"
+                   placeholder="Subject [Optional]" />
+        </div> 
+        <div class="mb-3">
+            <textarea rows="7" class="form-control" asp-for="Message" placeholder="Your Message"></textarea>
+        </div>
+        <button type="submit"
+                class="btn btn-primary">
+            Send
+        </button>
+    </form>
+</div>

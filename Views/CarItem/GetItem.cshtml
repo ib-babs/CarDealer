@@ -1,0 +1,13 @@
+﻿@model CarItem
+@{
+    ViewData["show-options-btn"] = true;
+    ViewData["show-all-details"] = true;
+    ViewData["show-sendinq-btn"] = true;
+}
+
+@if (Model != null)
+{
+      <div class=" d-flex flex-wrap gap-2">
+    <partial name="_ViewCar" model="Model" />
+    </div>
+}
