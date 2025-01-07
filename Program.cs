@@ -6,8 +6,8 @@ using Microsoft.Extensions.Azure;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var carSpotLightConnectionString = Environment.GetEnvironmentVariable("SqlServerConnectionString");
-var blobContainerConnectionString = Environment.GetEnvironmentVariable("BlobConnectionString");
+var carSpotLightConnectionString = builder.Configuration.GetConnectionString("SqlServerConnectionString");
+var blobContainerConnectionString = builder.Configuration.GetConnectionString("BlobConnectionString");
 
 builder.Services.AddScoped<ICarRepository, CarRepository>();
 builder.Services.AddAzureClients(azureConfig =>
