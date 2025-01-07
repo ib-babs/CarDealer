@@ -19,7 +19,7 @@ jobs:
 
       # Install dependencies
       - name: Install dependencies
-        run: dotnet restore --configuration Release
+        run: dotnet restore
 
       # Build
       - name: Build
