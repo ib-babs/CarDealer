@@ -3,7 +3,8 @@
 name: Build .NET App and publish it to azure -- Car Dealer
 
 on:
-  push:
+  workflow_dispatch:
+  
 
 env:
   AZURE_WEBAPP_NAME: "app-cardealer-eastus-dev-001"
