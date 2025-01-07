@@ -1,7 +1,16 @@
 ﻿@model CarListItem
 @{
+    var cn = Environment.GetEnvironmentVariable("SqlServerConnectionString");
+    var cn2 = Environment.GetEnvironmentVariable("BlobConnectionString");
+    var cn3 = Environment.GetEnvironmentVariable("SmtpUsername");
+    var cn4 = Environment.GetEnvironmentVariable("SmtpPassword");
     ViewData["Title"] = "New";
 }
+
+@cn
+@cn2
+@cn3
+@cn4
 <h4>Add New Item</h4>
 <div class="mb-3">
     <form method="post" enctype="multipart/form-data" asp-controller="Car" asp-action="CreateCar">

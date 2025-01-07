@@ -17,9 +17,9 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
-      # Install dependencies
-      - name: Install dependencies
-        run: dotnet restore
+      # # Install dependencies
+      # - name: Install dependencies
+      #   run: dotnet restore
 
       # Build
       - name: Build

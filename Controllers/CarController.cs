@@ -97,6 +97,7 @@ namespace CarDealer.Controllers
 
         [HttpGet]
         public IActionResult CreateCar() => View();
+        
 
         [HttpPost]
         public async Task<IActionResult> CreateCar(CarListItem carItem)
