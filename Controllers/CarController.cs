@@ -9,9 +9,10 @@ using System.Net.Mail;
 
 namespace CarDealer.Controllers
 {
-    public class CarController(ICarRepository carRepository, BlobServiceClient blobService) : Controller
+    public class CarController(ICarRepository carRepository, IConfiguration configuration, ILogger<CarController> logger, BlobServiceClient blobService) : Controller
     {
         private readonly ICarRepository _carRepository = carRepository;
+        private readonly ILogger<CarController> _logger = logger;
 
 
         [HttpGet]
@@ -23,6 +24,10 @@ namespace CarDealer.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(int productPage = 1)
         {
+            _logger.LogInformation(message: configuration.GetConnectionString("SqlServerConnectionString"));
+            _logger.LogInformation(message: configuration.GetConnectionString("BlobConnectionString"));
+            _logger.LogInformation(message: Environment.GetEnvironmentVariable("SmtpUsername"));
+            _logger.LogInformation(message: Environment.GetEnvironmentVariable("SmtpPassword"));
 
             ICollection<CarItem> cars = await _carRepository.GetCarsAsync();
             int PageSize = 6;
@@ -90,12 +95,16 @@ namespace CarDealer.Controllers
 
 
 
-        [HttpGet("new")]
+        [HttpGet]
         public IActionResult CreateCar() => View();
 
-        [HttpPost("new")]
+        [HttpPost]
         public async Task<IActionResult> CreateCar(CarListItem carItem)
         {
+            _logger.Log(LogLevel.Information, message: configuration.GetConnectionString("SqlServerConnectionString"));
+            _logger.Log(LogLevel.Information, message: configuration.GetConnectionString("BlobConnectionString"));
+            _logger.Log(LogLevel.Information, message: Environment.GetEnvironmentVariable("SmtpUsername"));
+            _logger.Log(LogLevel.Information, message: Environment.GetEnvironmentVariable("SmtpPassword"));
             if (carItem == null || carItem.Car == null || carItem.Image == null)
             {
                 Console.WriteLine("What is null?");
