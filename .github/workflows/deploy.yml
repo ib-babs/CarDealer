@@ -9,7 +9,7 @@ env:
   AZURE_WEBAPP_NAME: "app-cardealer-eastus-dev-001"
 jobs:
   build:
-    runs-on: window-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - name: Setup .NET Core
