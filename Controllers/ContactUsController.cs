@@ -4,7 +4,7 @@ using CarDealer.Service;
 using System.Net.Mail;
 namespace CarDealer.Controllers
 {
-    public class ContactUsController(IConfiguration config) : Controller
+    public class ContactUsController() : Controller
     {
         [HttpGet]
         public IActionResult Index() => View();
@@ -14,7 +14,7 @@ namespace CarDealer.Controllers
         {
             if (ModelState.IsValid)
             {
-                var username = config["Username"]!;
+                string username = Environment.GetEnvironmentVariable("SmtpUsername")!;
                 var mailMessage = new MailMessage()
                 {
                     From = new(username),
@@ -23,7 +23,7 @@ namespace CarDealer.Controllers
                     IsBodyHtml = false
                 };
 
-                EmailService.SendMessage(config, mailMessage, username);
+                EmailService.SendMessage(mailMessage, username);
                 return RedirectToAction("Index");
             }
             return View();

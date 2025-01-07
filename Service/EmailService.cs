@@ -5,12 +5,14 @@ namespace CarDealer.Service
 {
     public static class EmailService
     {
-        public static async void SendMessage(IConfiguration smtpConfig, MailMessage mailMessage, string recepient)
+        public static async void SendMessage(MailMessage mailMessage, string recepient)
         {
+            var username = Environment.GetEnvironmentVariable("SmtpUsername");
+            var password = Environment.GetEnvironmentVariable("SmtpPassword");
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
-                Credentials = new NetworkCredential(smtpConfig["SmtpUsername"], smtpConfig["SmtpPassword"]),
+                Credentials = new NetworkCredential(username, password),
                 EnableSsl = true,
             };
             mailMessage.To.Add(recepient);

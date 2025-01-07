@@ -9,7 +9,7 @@ using System.Net.Mail;
 
 namespace CarDealer.Controllers
 {
-    public class CarController(ICarRepository carRepository, IConfiguration config, BlobServiceClient blobService) : Controller
+    public class CarController(ICarRepository carRepository, BlobServiceClient blobService) : Controller
     {
         private readonly ICarRepository _carRepository = carRepository;
 
@@ -120,14 +120,12 @@ namespace CarDealer.Controllers
         [HttpPost]
         public async Task<IActionResult> SendUserInquiry(int id, string emailAddress)
         {
-            string username = config["SmtpUsername"]!;
-            Console.WriteLine(emailAddress);
-            Console.WriteLine(username);
+            var username = Environment.GetEnvironmentVariable("SmtpUsername");
             var carItem = await _carRepository.GetCarAsync(id);
 
             var mailMessage = new MailMessage()
             {
-                From = new(username),
+                From = new(username!),
                 Subject = $"Inquiry about {carItem.Model}",
                 Body = $"<div class='card' style='border-color:{carItem.Color}'> " +
                 $"<p class='card-header fs-3' style='border-color:{carItem.Color}'>{carItem.Manufacturer}</p>" +
@@ -137,7 +135,7 @@ namespace CarDealer.Controllers
                 $"</div>",
                 IsBodyHtml = true
             };
-            EmailService.SendMessage(config, mailMessage, emailAddress);
+            EmailService.SendMessage(mailMessage, emailAddress);
             Console.WriteLine("\n\nSent\n\n");
 
             return RedirectToAction("GetCar", new { id });
