@@ -1,6 +1,6 @@
 ﻿@model PageListView
 @{
-    ViewData["is-thumbnail-img"] = true;
+
     ViewData["Title"] = "Home";
     ViewData["show-view-detail-btn"] = true;
     ViewData["show-options-btn"] = true;
@@ -8,13 +8,13 @@
 @if (Model !=null)
 {
 
-    @if (Model.CarItems != null)
+    @if (Model.Cars != null)
     {
-        @if (Model.CarItems.Count() > 0)
+        @if (Model.Cars.Count() > 0)
         {
 
             <div class=" d-flex flex-wrap gap-2">
-                @foreach (CarItem carItem in Model.CarItems)
+                @foreach (CarItem carItem in Model.Cars)
                 {
                     <partial name="_ViewCar" model="carItem" />
                 }

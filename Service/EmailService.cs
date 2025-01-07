@@ -7,11 +7,10 @@ namespace CarDealer.Service
     {
         public static async void SendMessage(IConfiguration smtpConfig, MailMessage mailMessage, string recepient)
         {
-            var _smtpConfig = smtpConfig.GetSection("Smtp");
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
-                Credentials = new NetworkCredential(_smtpConfig["Username"], _smtpConfig["Password"]),
+                Credentials = new NetworkCredential(smtpConfig["SmtpUsername"], smtpConfig["SmtpPassword"]),
                 EnableSsl = true,
             };
             mailMessage.To.Add(recepient);

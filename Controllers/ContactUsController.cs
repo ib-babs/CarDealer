@@ -14,7 +14,7 @@ namespace CarDealer.Controllers
         {
             if (ModelState.IsValid)
             {
-                var username = config.GetSection("Smtp")["Username"]!;
+                var username = config["Username"]!;
                 var mailMessage = new MailMessage()
                 {
                     From = new(username),

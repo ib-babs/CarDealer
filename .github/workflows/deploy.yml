@@ -1,0 +1,38 @@
+# github action to publish cardealer app to azure
+
+name: Build .NET App and publish it to azure -- Car Dealer
+
+on:
+  workflow_dispatch:
+
+env:
+  AZURE_WEBAPP_NAME: ""
+jobs:
+  build:
+    runs-on: window-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      # Install dependencies
+      - name: Install dependencies
+        run: dotnet restore --configuration Release
+
+      # Build
+      - name: Build
+        run: dotnet build --configuration Release
+
+      # Publish
+      - name: Publish
+        run: dotnet publish --configuration Release --output ./publish
+
+      # Deploy
+      - name: Deploy to azure
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.API_PUBLISH_PROFILE }}
+          package: ./publish

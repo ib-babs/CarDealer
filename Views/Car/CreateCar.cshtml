@@ -1,0 +1,61 @@
+﻿@model CarListItem
+@{
+    ViewData["Title"] = "New";
+}
+<h4>Add New Item</h4>
+<div class="mb-3">
+    <form method="post" enctype="multipart/form-data" asp-controller="Car" asp-action="CreateCar">
+        <div asp-validation-summary="All"></div>
+        <div class="mb-3">
+            <input class="form-control"
+                   type="text" asp-for="Car.Manufacturer"
+                   placeholder="Manufacturer"
+                   required />
+        </div>
+        <div class="mb-3">
+            <input class="form-control"
+                   type="text" asp-for="Car.Model"
+                   placeholder="Model"
+                   required />
+        </div>
+        <div class="mb-3">
+            <input class="form-control"
+                   type="text" asp-for="Car.Color"
+                   placeholder="Color"
+                   required />
+        </div>
+
+        <div class="mb-3">
+            <input class="form-control"
+                   type="number" asp-for="Car.Year"
+                   placeholder="Year"
+                   required />
+        </div>
+        <div class="mb-3">
+            <input class="form-control"
+                   type="number" asp-for="Car.WheelQuantity"
+                   placeholder="Wheel Count"
+                   required />
+        </div>
+        <div class="mb-3">
+            <input class="form-control"
+                   type="text" asp-for="Car.Features"
+                   placeholder="Feature"
+                   required />
+        </div>
+        <div class="mb-3">
+            <input class="form-control"
+                   type="number" asp-for="Car.Price"
+                   placeholder="Price"
+                   required />
+        </div>
+
+        <div class="mb-3">
+            <input class="form-control"
+                   type="file" asp-for="Image" accept="image/jpg,png"
+                   required />
+        </div>
+
+        <input class="btn btn-outline-primary" type="submit" value="Post" />
+    </form>
+</div>

@@ -1,0 +1,55 @@
+﻿@model CarItem
+@{
+    ViewData["Title"] = "Edit";
+}
+<h4>Add New Item</h4>
+<div class="mb-3">
+    <form method="post" enctype="multipart/form-data" asp-controller="Car" asp-action="EditCar">
+        <div asp-validation-summary="All"></div>
+        <div class="mb-3">
+            <input class="form-control"
+                   type="text" asp-for="Manufacturer"
+                   placeholder="Manufacturer"
+                   required />
+        </div>
+        <div class="mb-3">
+            <input class="form-control"
+                   type="text" asp-for="Model"
+                   placeholder="Model"
+                   required />
+        </div>
+        <div class="mb-3">
+            <input class="form-control"
+                   type="text" asp-for="Color"
+                   placeholder="Color"
+                   required />
+        </div>
+
+        <div class="mb-3">
+            <input class="form-control"
+                   type="number" asp-for="Year"
+                   placeholder="Year"
+                   required />
+        </div>
+        <div class="mb-3">
+            <input class="form-control"
+                   type="number" asp-for="WheelQuantity"
+                   placeholder="Wheel Count"
+                   required />
+        </div>
+        <div class="mb-3">
+            <input class="form-control"
+                   type="text" asp-for="Features"
+                   placeholder="Feature"
+                   required />
+        </div>
+        <div class="mb-3">
+            <input class="form-control"
+                   type="number" asp-for="Price"
+                   placeholder="Price"
+                   required />
+        </div>
+
+        <input class="btn btn-outline-primary" type="submit" value="Save Changes" />
+    </form>
+</div>
