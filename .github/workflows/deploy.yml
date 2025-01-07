@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_WEBAPP_NAME: ""
+  AZURE_WEBAPP_NAME: "app-cardealer-eastus-dev-001"
 jobs:
   build:
     runs-on: window-latest
@@ -34,5 +34,5 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.API_PUBLISH_PROFILE }}
+          publish-profile: ${{ secrets.API_PUBLISH_SECRET }}
           package: ./publish
